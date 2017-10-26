@@ -65,6 +65,14 @@ https://github.com/apfejes/epigenetics-software/wiki/Import-DNA-Methylation-Data
 https://www.khalidalnajjar.com/insert-200-million-rows-into-mongodb-in-minutes/
 
 
-
-
+### Import ReMap all peaks BED, as simple BED tab file
+```
+mongoimport -d remap -c all --type tsv --file ~/remap-rest-dev/data/beds/ReMap2_allPeaks.bed -f chrom,chromStart,chromEnd,name,score,strand,thickStart,thickEnd,itemRgb  --numInsertionWorkers 2
+2017-10-26T14:19:17.243+0100	connected to: localhost
+2017-10-26T14:19:20.236+0100	[........................] remap.all	35.9MB/6.11GB (0.6%)
+[...]
+2017-10-26T14:24:14.237+0100	[#############...........] remap.all	3.35GB/6.11GB (54.9%)
+[...]
+2017-10-26T14:28:46.596+0100	imported 80129424 documents
+```
 
