@@ -76,3 +76,46 @@ mongoimport -d remap -c all --type tsv --file ~/remap-rest-dev/data/beds/ReMap2_
 2017-10-26T14:28:46.596+0100	imported 80129424 documents
 ```
 
+### Indexing 
+```
+db.all.ensureIndex({chrom:1,chromStart:1,chromEnd:1}); 
+```
+#-- returns
+```
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+}
+```
+Pour obtenir la liste de tous les index 
+```
+> db.all.getIndexes()
+[
+	{
+		"v" : 2,
+		"key" : {
+			"_id" : 1
+		},
+		"name" : "_id_",
+		"ns" : "remap.all"
+	},
+	{
+		"v" : 2,
+		"key" : {
+			"chrom" : 1,
+			"chromStart" : 1,
+			"chromEnd" : 1
+		},
+		"name" : "chrom_1_chromStart_1_chromEnd_1",
+		"ns" : "remap.all"
+	}
+]
+```
+
+
+
+
+
+
