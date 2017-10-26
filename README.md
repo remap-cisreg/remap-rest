@@ -1,6 +1,16 @@
 # remap-rest
 Making the RESTful data access to ReMap data over HTTP
 
+# Which REST server ?
+
+## Catalyst 
+
+## Django 
+
+## Flask
+
+
+
 #  Examples from the Web
 
 ## MongoDB at EBI variation
@@ -29,11 +39,32 @@ The following example command creates the default ```/data/db``` directory:
 
 ```mkdir -p /data/db```
 ## Copy ReMap BEDs 
-copy ReMap beds into a beds/ folder
+copy ReMap beds into a ```beds/``` folder
 
 ## MongoDB : Run MongoDB
 
 ```mongod ```
+```mongod --dbpath ~/remap-rest-dev/data/db```
+
+to stop MongoDB, press ```Control+C``` in the terminal where the mongod instance is running.
+
+## the prompt
+
+``` 
+mongo
+use remap
+db.all.insertOne( { x: 1 } );
+```
+
+## Importing Data into MongoDB
+
+### Import DNA Methylation Data into Mongo
+https://github.com/apfejes/epigenetics-software/wiki/Import-DNA-Methylation-Data-into-Mongo
+
+### Import 200 millions rows
+https://www.khalidalnajjar.com/insert-200-million-rows-into-mongodb-in-minutes/
+
+
 
 
 
