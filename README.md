@@ -115,6 +115,14 @@ Pour obtenir la liste de tous les index
 ```
 
 
+### french help
+https://mongoteam.gitbooks.io/introduction-a-mongodb/content/01-presentation/index.html
+
+```
+db.all.find({ chrom: "chr2",  chromStart: {$gte: 50967094}, chromEnd:{$lte: 50970983} }  ).count()
+db.all.find({ chrom: "chr18",  chromStart: {$gte: 50967094}, chromEnd:{$lte: 50970983} }  ).pretty()
+
+```
 
 
 
