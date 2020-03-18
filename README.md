@@ -3,13 +3,12 @@ Making the RESTful data access to ReMap data over HTTP
 
 # Which REST server ?
 
-## Catalyst 
+## Lumen
+The github repo is here https://github.com/laravel/lumen 
+Lumen is a PHP micro-framework built to deliver microservices and blazing fast APIs. 
 
-## Django 
-
-## Flask
-
-
+## Developing RESTful APIs with Lumen (A PHP Micro-framework)
+Learn how to build and secure RESTful APIs with Lumen here https://auth0.com/blog/developing-restful-apis-with-lumen/
 
 #  Examples from the Web
 
