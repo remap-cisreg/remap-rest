@@ -33,9 +33,9 @@ export PATH=<mongodb-install-directory>/bin:$PATH
 
 Or use (for Mac) the 'brew' alternative presented here: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/  
 
-the configuration file (/usr/local/etc/mongod.conf)
-the log directory path (/usr/local/var/log/mongodb)
-the data directory path (/usr/local/var/mongodb)
+- the configuration file (/usr/local/etc/mongod.conf)
+- the log directory path (/usr/local/var/log/mongodb)
+- the data directory path (/usr/local/var/mongodb)
 
 
 ## MongoDB : Create the data directory
