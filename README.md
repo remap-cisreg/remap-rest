@@ -43,9 +43,15 @@ Create the directory to which the mongod process will write data. By default, th
 
 The following example command creates the default ```/data/db``` directory:
 
-```mkdir -p /data/db```
+```mkdir -p ~/data/db```
 ## Copy ReMap BEDs 
 copy ReMap beds into a ```beds/``` folder
+
+```
+wget http://remap.univ-amu.fr/storage/remap2020/hg38/MACS2/remap2020_all_macs2_hg38_v1_0.bed.gz
+gunzip remap2020_all_macs2_hg38_v1_0.bed.gz
+```
+
 
 ## MongoDB : Run MongoDB
 
