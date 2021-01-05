@@ -69,11 +69,13 @@ to stop MongoDB, press ```Control+C``` in the terminal where the mongod instance
 
 ## the Mongo prompt
 
+The following creates both the database remap2020 and the collection `hsap_all_peaks` during the insertOne() operation:
 ``` 
 mongo
 use remap2020
-db.all.insertOne( { x: 1 } );
+db.hsap_all_peaks.insertOne( { x: 1 } );
 ```
+For example, t
 
 To switch databases, issue the use `db` helper, as in the following example:
 ```
@@ -85,8 +87,16 @@ use <database>
 - `db` refers to the current database.
 - `myCollection` is the name of the collection.
 
+## Customize the mongo Prompt
 
+Edit the `~/.mongorc.js` file with the following
 
+```
+host = db.serverStatus().host;
+prompt = function() {
+             return db+"@"+host+"$ ";
+         }
+```
 
 
 ## Importing Data into MongoDB
@@ -100,18 +110,30 @@ https://www.khalidalnajjar.com/insert-200-million-rows-into-mongodb-in-minutes/
 
 ### Import ReMap all peaks BED, as simple BED tab file
 ```
-mongoimport -d remap -c all --type tsv --file ~/remap-rest-dev/data/beds/ReMap2_allPeaks.bed -f chrom,chromStart,chromEnd,name,score,strand,thickStart,thickEnd,itemRgb  --numInsertionWorkers 2
-2017-10-26T14:19:17.243+0100	connected to: localhost
-2017-10-26T14:19:20.236+0100	[........................] remap.all	35.9MB/6.11GB (0.6%)
+mongoimport -d remap2020 -c hsap_all_peaks --type tsv --file remap2020_all_macs2_hg38_v1_0.bed -f chrom,chromStart,chromEnd,name,score,strand,thickStart,thickEnd,itemRgb  --numInsertionWorkers 2
+
+2021-01-05T14:11:11.874+0100	connected to: mongodb://localhost/
+2021-01-05T14:11:14.874+0100	[........................] remap2020.hsap_all_peaks	51.7MB/13.4GB (0.4%)
 [...]
-2017-10-26T14:24:14.237+0100	[#############...........] remap.all	3.35GB/6.11GB (54.9%)
-[...]
-2017-10-26T14:28:46.596+0100	imported 80129424 documents
+2021-01-05T14:28:11.961+0100	[########################] remap2020.hsap_all_peaks	13.4GB/13.4GB (100.0%)
+2021-01-05T14:28:11.961+0100	164732372 document(s) imported successfully. 0 document(s) failed to import.
 ```
+
+Quick query
+```
+db.hsap_all_peaks.find( {} )
+```
+
 
 ### Indexing 
 ```
-db.all.ensureIndex({chrom:1,chromStart:1,chromEnd:1}); 
+db.hsap_all_peaks.createIndex(
+	{chrom:1}
+)
+db.hsap_all_peaks.createIndex(
+	{chrom:1,chromStart:1,chromEnd:1}
+)
+
 ```
 #-- returns
 ```
@@ -124,7 +146,7 @@ db.all.ensureIndex({chrom:1,chromStart:1,chromEnd:1});
 ```
 Pour obtenir la liste de tous les index 
 ```
-> db.all.getIndexes()
+> db.hsap_all_peaks.getIndexes()
 [
 	{
 		"v" : 2,
@@ -132,7 +154,7 @@ Pour obtenir la liste de tous les index
 			"_id" : 1
 		},
 		"name" : "_id_",
-		"ns" : "remap.all"
+		"ns" : "remap2020.hsap_all_peaks"
 	},
 	{
 		"v" : 2,
@@ -142,15 +164,15 @@ Pour obtenir la liste de tous les index
 			"chromEnd" : 1
 		},
 		"name" : "chrom_1_chromStart_1_chromEnd_1",
-		"ns" : "remap.all"
+		"ns" : "remap2020.hsap_all_peaks"
 	}
 ]
 ```
 
 Make some queries
 ```
-db.all.find({ chrom: "chr2",  chromStart: {$gte: 50967094}, chromEnd:{$lte: 50970983} }  ).count()
-db.all.find({ chrom: "chr18",  chromStart: {$gte: 50967094}, chromEnd:{$lte: 50970983} }  ).pretty()
+db.hsap_all_peaks.find({ chrom: "chr2",  chromStart: {$gte: 50967094}, chromEnd:{$lte: 50970983} }  ).count()
+db.hsap_all_peaks.find({ chrom: "chr18",  chromStart: {$gte: 50967094}, chromEnd:{$lte: 50970983} }  ).pretty()
 
 ```
 
