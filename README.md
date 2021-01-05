@@ -44,29 +44,50 @@ Create the directory to which the mongod process will write data. By default, th
 The following example command creates the default ```/data/db``` directory:
 
 ```mkdir -p ~/data/db```
-## Copy ReMap BEDs 
-copy ReMap beds into a ```beds/``` folder
+## Get ReMap BEDs 
+Get ReMap main bed file into a ```beds/``` folder
 
 ```
+cd ~/data/db
+mkdir -p beds/
 wget http://remap.univ-amu.fr/storage/remap2020/hg38/MACS2/remap2020_all_macs2_hg38_v1_0.bed.gz
 gunzip remap2020_all_macs2_hg38_v1_0.bed.gz
 ```
 
 
-## MongoDB : Run MongoDB
+## MongoDB : Run MongoDB for MacOS
 
 ```mongod ```
-```mongod --dbpath ~/remap-rest-dev/data/db```
+```mongod --dbpath ~/data/db```
+
+```
+brew services start mongodb-community@4.4
+brew services stop mongodb-community@4.4
+```
 
 to stop MongoDB, press ```Control+C``` in the terminal where the mongod instance is running.
 
-## the prompt
+## the Mongo prompt
 
 ``` 
 mongo
-use remap
+use remap2020
 db.all.insertOne( { x: 1 } );
 ```
+
+To switch databases, issue the use `db` helper, as in the following example:
+```
+use <database>
+```
+
+
+
+- `db` refers to the current database.
+- `myCollection` is the name of the collection.
+
+
+
+
 
 ## Importing Data into MongoDB
 
