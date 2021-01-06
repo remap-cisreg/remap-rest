@@ -99,14 +99,7 @@ prompt = function() {
 ```
 
 
-## Importing Data into MongoDB
-
-### Import DNA Methylation Data into Mongo
-https://github.com/apfejes/epigenetics-software/wiki/Import-DNA-Methylation-Data-into-Mongo
-
-### Import 200 millions rows
-https://www.khalidalnajjar.com/insert-200-million-rows-into-mongodb-in-minutes/
-
+## Importing ReMap into MongoDB
 
 ### Import ReMap all peaks BED, as simple BED tab file
 ```
@@ -125,7 +118,7 @@ db.hsap_all_peaks.find( {} )
 ```
 
 
-### Indexing 
+### Indexing on Chromosome, and Chromosome+start+end
 ```
 db.hsap_all_peaks.createIndex(
 	{chrom:1}
@@ -135,12 +128,12 @@ db.hsap_all_peaks.createIndex(
 )
 
 ```
-#-- returns
+it returns
 ```
 {
 	"createdCollectionAutomatically" : false,
-	"numIndexesBefore" : 1,
-	"numIndexesAfter" : 2,
+	"numIndexesBefore" : 2,
+	"numIndexesAfter" : 3,
 	"ok" : 1
 }
 ```
@@ -153,8 +146,7 @@ Pour obtenir la liste de tous les index
 		"key" : {
 			"_id" : 1
 		},
-		"name" : "_id_",
-		"ns" : "remap2020.hsap_all_peaks"
+		"name" : "_id_"
 	},
 	{
 		"v" : 2,
@@ -163,20 +155,34 @@ Pour obtenir la liste de tous les index
 			"chromStart" : 1,
 			"chromEnd" : 1
 		},
-		"name" : "chrom_1_chromStart_1_chromEnd_1",
-		"ns" : "remap2020.hsap_all_peaks"
+		"name" : "chrom_1_chromStart_1_chromEnd_1"
+	},
+	{
+		"v" : 2,
+		"key" : {
+			"chrom" : 1
+		},
+		"name" : "chrom_1"
 	}
 ]
+
+Il faudra aussi créer des index pour les TF, Biotype and Exp name
+
+
 ```
 
 Make some queries
 ```
 db.hsap_all_peaks.find({ chrom: "chr2",  chromStart: {$gte: 50967094}, chromEnd:{$lte: 50970983} }  ).count()
 db.hsap_all_peaks.find({ chrom: "chr18",  chromStart: {$gte: 50967094}, chromEnd:{$lte: 50970983} }  ).pretty()
+db.hsap_all_peaks.find({ chrom: "chr2" }  ).count()
 
 ```
 
+## Examples 
 
+### Import 200 millions rows
+https://www.khalidalnajjar.com/insert-200-million-rows-into-mongodb-in-minutes/
 
 ###  mongoDB documentation in French
 https://mongoteam.gitbooks.io/introduction-a-mongodb/content/01-presentation/index.html
