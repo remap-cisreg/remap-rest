@@ -200,17 +200,21 @@ https://mongoteam.gitbooks.io/introduction-a-mongodb/content/01-presentation/ind
 Pull a MongoDB image (here we use the latest version 4.4.3) - Lets stick to this version for now. 
 ```
 docker pull mongo:4.4.3
-
 ```
+
 By default, MongoDB stores data in the '/data/db' directory within the Docker container. To remedy this, mount a directory from the underlying host system to the container running the MongoDB database. This way, data is stored on your host system and is not going to be erased if a container instance fails.
 ```
 mkdir -p ~/mongo-database
 ```
-Start the Docker container with the run command using the mongo image. The `/data/db` directory in the container is mounted as `/mongo-database` on the host. Additionally, this command changes the name of the container to mongo-remap:
+
+Start the Docker container with the run command using the mongo image. The `/data/db` directory in the container is mounted as `~/mongo-database` on the host. Additionally, this command changes the name of the container to mongo-remap:
 
 ```
-docker run  -p 27017:27017 -v /Users/benoit/mongo-database:/data/db --name mongo-remap -d mongo:4.4.3 mongod --auth
+docker run  -p 27017:27017 -v ~/mongo-database:/data/db --name mongo-remap -d mongo:4.4.3 mongod --auth
 ```
 
+## MongoExpress : Web-based MongoDB admin interface
 
+- https://github.com/mongo-express/mongo-express 
+- http://www.rgot.org/212-2/ 
 
