@@ -195,12 +195,22 @@ https://mongoteam.gitbooks.io/introduction-a-mongodb/content/01-presentation/ind
 - https://hub.docker.com/_/mongo
 - https://docs.mongodb.com/manual/tutorial/install-mongodb-enterprise-with-docker/ 
 
-### Howto
+### How to deploy MongoDB container
 
+Pull a MongoDB image (here we use the latest version 4.4.3) - Lets stick to this version for now. 
+```
+docker pull mongo:4.4.3
 
+```
+By default, MongoDB stores data in the '/data/db' directory within the Docker container. To remedy this, mount a directory from the underlying host system to the container running the MongoDB database. This way, data is stored on your host system and is not going to be erased if a container instance fails.
+```
+mkdir -p ~/mongo-database
+```
+Start the Docker container with the run command using the mongo image. The `/data/db` directory in the container is mounted as `/mongo-database` on the host. Additionally, this command changes the name of the container to mongodb:
 
-
-
+```
+docker run -it -v mongo-database:/data/db --name mongo-remap -d mongo:4.4.3
+```
 
 
 
