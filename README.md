@@ -189,13 +189,13 @@ https://mongoteam.gitbooks.io/introduction-a-mongodb/content/01-presentation/ind
 
 
 
-## Mongo on Docker 
+# Mongo on Docker 
 
 ### Web links tutotials
 - https://hub.docker.com/_/mongo
 - https://docs.mongodb.com/manual/tutorial/install-mongodb-enterprise-with-docker/ 
 
-### How to deploy MongoDB container
+## How to deploy MongoDB container
 
 Pull a MongoDB image (here we use the latest version 4.4.3) - Lets stick to this version for now. 
 ```
