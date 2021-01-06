@@ -206,7 +206,7 @@ By default, MongoDB stores data in the '/data/db' directory within the Docker co
 ```
 mkdir -p ~/mongo-database
 ```
-Start the Docker container with the run command using the mongo image. The `/data/db` directory in the container is mounted as `/mongo-database` on the host. Additionally, this command changes the name of the container to mongodb:
+Start the Docker container with the run command using the mongo image. The `/data/db` directory in the container is mounted as `/mongo-database` on the host. Additionally, this command changes the name of the container to mongo-remap:
 
 ```
 docker run  -p 27017:27017 -v /Users/benoit/mongo-database:/data/db --name mongo-remap -d mongo:4.4.3 mongod --auth
