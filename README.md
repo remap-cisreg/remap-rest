@@ -189,7 +189,7 @@ https://mongoteam.gitbooks.io/introduction-a-mongodb/content/01-presentation/ind
 
 
 
-# Mongo on Docker 
+# Test Mongo on Docker 
 
 ### Web links tutotials
 - https://hub.docker.com/_/mongo
@@ -211,10 +211,37 @@ Start the Docker container with the run command using the mongo image. The `/dat
 
 ```
 docker run  -p 27017:27017 -v ~/mongo-database:/data/db --name mongo-remap -d mongo:4.4.3 mongod --auth
+# then to list the containser
+docker container ls 
 ```
+
+
+# Mongo DB and Mongoexpress on Docker
+
+The simplest way is run `docker-compose up -d` in directory with `docker-compose.yml`:
+
+```
+docker-compose up -d
+```
+
+And then open http://localhost:8081/ in your browser using the `login/passowrd` in the `.env` file
+
 
 ## MongoExpress : Web-based MongoDB admin interface
 
 - https://github.com/mongo-express/mongo-express 
 - http://www.rgot.org/212-2/ 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
