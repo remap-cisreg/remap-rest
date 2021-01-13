@@ -187,6 +187,11 @@ https://www.khalidalnajjar.com/insert-200-million-rows-into-mongodb-in-minutes/
 ###  mongoDB documentation in French
 https://mongoteam.gitbooks.io/introduction-a-mongodb/content/01-presentation/index.html
 
+# Mongo Dump
+```
+mongodump --db=remap2020 --out=mongodump/
+```
+
 
 
 # Test Mongo on Docker 
@@ -221,10 +226,38 @@ docker container ls
 The simplest way is run `docker-compose up -d` in directory with `docker-compose.yml`:
 
 ```
-docker-compose up -d
+docker-compose up -d # run in the background
+docker-compose up # if you want interactive
+docker-compose down 
 ```
 
+If we want to check the logs of containers in the background run the following:
+```
+docker-compose logs -f
+```
+If needed, run the following command to login to the container mongo instance:
+```
+docker-compose exec mongo mongo
+```
+This runs the mongo command in our mongo "DB" service, and puts us into our Mongo database
+
 And then open http://localhost:8081/ in your browser using the `login/passowrd` in the `.env` file
+
+
+## Login to the mongo-remap container
+
+`~/mongo-database-remap2020:/data/db` means you want to set data on container persist on your local folder named `mongo-database-remap2020` . `/data/db/` is a folder that already created inside the mongo container.
+
+Login to your container by using container names
+```
+docker exec -it mongo-remap bash 
+```
+
+then, once in the container, login to MongoDB with created User & Database by using
+mongo -u <username> -p <password>
+
+## Insert ReMap data
+
 
 
 ## MongoExpress : Web-based MongoDB admin interface
