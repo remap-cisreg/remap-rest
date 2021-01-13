@@ -13,6 +13,8 @@ services:
         volumes:
             - '~/mongo-database-remap2020:/data/db'
             #- ./mongo-init/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+        command:
+                /mongo-seed/import.sh
     mongo-express:
         image: mongo-express:0.54.0
         container_name: mongoex-remap
