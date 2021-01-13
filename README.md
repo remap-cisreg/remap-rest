@@ -187,11 +187,18 @@ https://www.khalidalnajjar.com/insert-200-million-rows-into-mongodb-in-minutes/
 ###  mongoDB documentation in French
 https://mongoteam.gitbooks.io/introduction-a-mongodb/content/01-presentation/index.html
 
-# Mongo Dump
+# Mongo Dump & Restore
+
+This command will backup only specified database at specified path at `data/db/PATH`.
 ```
 mongodump --db=remap2020 --out=mongodump/
 ```
 
+
+## Basic mongorestore Operations¶
+```
+mongorestore --port=<port number> <path to the backup>
+```
 
 
 # Test Mongo on Docker 
