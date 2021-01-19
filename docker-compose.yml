@@ -4,6 +4,9 @@ services:
     mongo:
         image: mongo:4.4.3
         container_name: mongo-remap
+#        build: 
+#            context: .
+#            dockerfile: mongo/Dockerfile
         env_file:
             - .env
         environment:
@@ -14,8 +17,25 @@ services:
           - "27017:27017"
         volumes:
             - '~/mongo-database-remap2020:/data/db'
+            - '~/data/db/mongodump/:/data/dump/'
             #- ./mongo-express/docker-entrypoint.sh:/docker-entrypoint.sh
-            #- ./mongo-init/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+            - ./mongo/.mongorc.js:~/.mongorc.js
+#        command: 
+#            mongorestore remap2020/
+
+#    mongo-seed:
+#        image: mongo:4.4.3
+#        container_name: mongo-seed
+#        build: mongo-seed/.
+#        links:
+#          - mongo
+#        volumes:
+#          - ./mongo-seed:/mongo-seed
+#          - '~/data/db/mongodump/:/data/db/mongodump/'
+#        command:
+#          #'bash -c "mongoimport --host mongodb --type json --file /seed-data/projects.json --jsonArray"'
+#          /mongo-seed/import.sh
+
 
     mongo-express:
         image: mongo-express:0.54.0
@@ -34,6 +54,7 @@ services:
           - ME_CONFIG_BASICAUTH_USERNAME=${MONGOEXPRESS_LOGIN}
           - ME_CONFIG_BASICAUTH_PASSWORD=${MONGOEXPRESS_PASSWORD}
         depends_on:
-            - mongo
+          - mongo
         ports:
           - "8081:8081"
+
