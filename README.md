@@ -99,6 +99,49 @@ prompt = function() {
 ```
 
 
+## Create User root with admin rights 
+
+In the mongo prompt :
+
+```
+db.createUser(
+  {
+    user: "root",
+    pwd: passwordPrompt(), 
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ]
+  }
+)
+```
+
+Re-start the MongoDB instance with access control.
+```
+mongod --auth --port 27017 --dbpath /data/db
+```
+
+Connect and authenticate as the user administrator.
+```
+mongo --port 27017 -u "root" -p "PASSWORD " --authenticationDatabase "admin"
+```
+
+
+Create additional users as needed for your deployment (e.g. in the test authentication database).
+```
+use test
+db.createUser(
+  {
+    user: "myTester",
+    pwd: "xyz123",
+    roles: [ { role: "readWrite", db: "test" },
+             { role: "read", db: "reporting" } ]
+  }
+)
+```
+Connect and authenticate as myTester
+```
+mongo --port 27017 -u "myTester" -p "xyz123" --authenticationDatabase "test"
+```
+
+
 ## Importing ReMap into MongoDB
 
 ### Import ReMap all peaks BED, as simple BED tab file
@@ -191,14 +234,30 @@ https://mongoteam.gitbooks.io/introduction-a-mongodb/content/01-presentation/ind
 
 This command will backup only specified database at specified path at `data/db/PATH`.
 ```
-mongodump --db=remap2020 --out=mongodump/
+cd ~/data/db/mongodump/remap2020/
+mongodump --db remap2020
 ```
 
 
 ## Basic mongorestore Operations¶
 ```
 mongorestore --port=<port number> <path to the backup>
+mongorestore --dryRun --verbose --nsInclude=remap2020.hsap_all_peak  /data/dump/remap2020/ 
 ```
+
+
+# Mongo Export / Import
+
+This command will backup only specified database at specified path at `data/db/PATH`.
+```
+mongoexport --db=remap2020 --collection=remap2020_hsap_all_peaks --out=~/data/db/mongodump/remap2020_hsap_all_peaks.json
+```
+
+
+```
+mongoimport --db=remap2020 --collection=remap2020_hsap_all_peaks --type=json --file=~/data/db/mongodump/remap2020_hsap_all_peaks.json
+```
+
 
 
 # Test Mongo on Docker 
