@@ -124,7 +124,7 @@ mongo --port 27017 -u "root" -p "PASSWORD " --authenticationDatabase "admin"
 ```
 
 
-Create additional users as needed for your deployment (e.g. in the test authentication database).
+## Create additional users as needed for your deployment (e.g. in the test authentication database).
 ```
 use test
 db.createUser(
