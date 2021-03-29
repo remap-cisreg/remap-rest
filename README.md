@@ -155,13 +155,13 @@ mongoimport -d remap2020 -c hsap_all_peaks --type tsv --file remap2020_all_macs2
 2021-01-05T14:28:11.961+0100	164732372 document(s) imported successfully. 0 document(s) failed to import.
 ```
 
-Quick query
+Quick query - Exmaple
 ```
 db.hsap_all_peaks.find( {} )
 ```
 
 
-### Indexing on Chromosome, and Chromosome+start+end
+### Create indexes on Chromosome, and Chromosome+start+end
 ```
 db.hsap_all_peaks.createIndex(
 	{chrom:1}
@@ -222,7 +222,7 @@ db.hsap_all_peaks.find({ chrom: "chr2" }  ).count()
 
 ```
 
-## Examples 
+## Examples of sites using MongodB
 
 ### Import 200 millions rows
 https://www.khalidalnajjar.com/insert-200-million-rows-into-mongodb-in-minutes/
@@ -234,12 +234,22 @@ https://mongoteam.gitbooks.io/introduction-a-mongodb/content/01-presentation/ind
 
 This command will backup only specified database at specified path at `data/db/PATH`.
 ```
-cd ~/data/db/mongodump/remap2020/
+cd ~/data/mongodump/
 mongodump --db remap2020
+2021-03-29T13:53:44.115+0200	writing remap2020.hsap_all_peaks to dump/remap2020/hsap_all_peaks.bson
+2021-03-29T13:53:47.034+0200	[........................]  remap2020.hsap_all_peaks  980864/164732373  (0.6%)
+2021-03-29T13:53:50.038+0200	[........................]  remap2020.hsap_all_peaks  2267528/164732373  (1.4%)
+2021-03-29T13:53:53.034+0200	[........................]  remap2020.hsap_all_peaks  3488387/164732373  (2.1%)
+2021-03-29T13:53:56.034+0200	[........................]  remap2020.hsap_all_peaks  4708359/164732373  (2.9%)
+2021-03-29T13:53:59.036+0200	[........................]  remap2020.hsap_all_peaks  6069968/164732373  (3.7%)
+2021-03-29T13:54:02.032+0200	[#.......................]  remap2020.hsap_all_peaks  7402227/164732373  (4.5%)
+2021-03-29T13:54:05.033+0200	[#.......................]  remap2020.hsap_all_peaks  8713546/164732373  (5.3%)
+...
+
 ```
 
 
-## Basic mongorestore Operations¶
+## Basic mongorestore Operations
 ```
 mongorestore --port=<port number> <path to the backup>
 mongorestore --dryRun --verbose --nsInclude=remap2020.hsap_all_peak  /data/dump/remap2020/ 
