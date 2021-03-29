@@ -1,0 +1,1 @@
+# script to format the NR (non-redundant) BED file into TSV file for a mongo import.
