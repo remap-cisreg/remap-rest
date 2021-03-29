@@ -141,6 +141,14 @@ Connect and authenticate as myTester
 mongo --port 27017 -u "myTester" -p "xyz123" --authenticationDatabase "test"
 ```
 
+## Checking where your mongo data is stored
+You need to make sure you know where the mongo data is stored. 
+In the mongo prompt type this command.
+```
+db.serverCmdLineOpts() 
+```
+
+
 
 ## Importing ReMap into MongoDB
 
@@ -340,6 +348,15 @@ mongo -u <username> -p <password>
 
 - https://github.com/mongo-express/mongo-express 
 - http://www.rgot.org/212-2/ 
+
+
+# Installing Lumen
+Lumen utilizes Composer to manage its dependencies. So, before using Lumen, make sure you have Composer installed on your machine.
+
+Install Lumen by issuing the Composer create-project command in your terminal:
+```
+composer create-project --prefer-dist laravel/lumen remap-rest
+```
 
 
 
