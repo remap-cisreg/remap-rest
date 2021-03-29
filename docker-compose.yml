@@ -1,41 +1,21 @@
-version: '3'
+version: '3.0'
 
 services:
     mongo:
-        image: mongo:4.4.3
         container_name: mongo-remap
-#        build: 
-#            context: .
-#            dockerfile: mongo/Dockerfile
+        image: mongo:4.4.3
         env_file:
-            - .env
+          - .env
         environment:
-            - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER}
-            - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
-            - MONGO_INITDB_DATABASE=hsap_remap_2020 # database name you want to make
+          - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER}
+          - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+          - MONGO_INITDB_DATABASE=remap2020 
         ports:
           - "27017:27017"
         volumes:
-            - '~/mongo-database-remap2020:/data/db'
-            - '~/data/db/mongodump/:/data/dump/'
-            #- ./mongo-express/docker-entrypoint.sh:/docker-entrypoint.sh
-            - ./mongo/.mongorc.js:~/.mongorc.js
-#        command: 
-#            mongorestore remap2020/
-
-#    mongo-seed:
-#        image: mongo:4.4.3
-#        container_name: mongo-seed
-#        build: mongo-seed/.
-#        links:
-#          - mongo
-#        volumes:
-#          - ./mongo-seed:/mongo-seed
-#          - '~/data/db/mongodump/:/data/db/mongodump/'
-#        command:
-#          #'bash -c "mongoimport --host mongodb --type json --file /seed-data/projects.json --jsonArray"'
-#          /mongo-seed/import.sh
-
+          - /Users/benoit/mongo-database-remap2020:/data/db
+        networks: 
+          - mongo-compose-network
 
     mongo-express:
         image: mongo-express:0.54.0
@@ -43,7 +23,7 @@ services:
         env_file:
             - .env
         environment:
-          - ME_CONFIG_MONGODB_SERVER=mongo
+          - ME_CONFIG_MONGODB_SERVER=mongo-remap
           - ME_CONFIG_MONGODB_PORT=27017
           - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
           - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_ROOT_USER}
@@ -54,7 +34,14 @@ services:
           - ME_CONFIG_BASICAUTH_USERNAME=${MONGOEXPRESS_LOGIN}
           - ME_CONFIG_BASICAUTH_PASSWORD=${MONGOEXPRESS_PASSWORD}
         depends_on:
-          - mongo
+          - "mongo"
+        volumes:
+          - /Users/benoit/mongo-database-remap2020:/data/db
         ports:
           - "8081:8081"
+        networks: 
+          - mongo-compose-network
 
+networks:
+  mongo-compose-network:
+    driver: bridge
