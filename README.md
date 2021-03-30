@@ -355,7 +355,7 @@ Lumen utilizes Composer to manage its dependencies. So, before using Lumen, make
 
 Install Lumen by issuing the Composer create-project command in your terminal:
 ```
-composer create-project --prefer-dist laravel/lumen lumen
+composer create-project --prefer-dist laravel/lumen=8.0 lumen
 ```
 you will need to have composer isntalled https://getcomposer.org/download/ 
 
